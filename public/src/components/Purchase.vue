@@ -1,5 +1,8 @@
 <template>
-    <navbar></navbar>
+    <div class="purchase">
+        <navbar></navbar>
+        <img src="//placehold.it/1000x1000">
+    </div>
 </template>
 
 <script>
@@ -8,8 +11,11 @@
         name: 'Purchase',
         data() {
             return {
-                
+
             }
+        },
+        mounted() {
+            
         },
         components: {
             navbar

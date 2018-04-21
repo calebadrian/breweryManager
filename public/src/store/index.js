@@ -16,7 +16,7 @@ vue.use(vuex)
 
 export default new vuex.Store({
     state: {
-        user: ''
+        user: {},
     },
     mutations: {
         setUser(state, payload) {
@@ -28,6 +28,34 @@ export default new vuex.Store({
             auth.get('authenticate')
                 .then(res => {
                     commit('setUser', res.data)
+                })
+                .catch(err => {
+                    router.push({name: 'Home'})
+                })
+        },
+        login({ commit, dispatch }, payload) {
+            auth.post('login', payload)
+                .then(res => {
+                    commit('setUser', res.data.user)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        register({ commit, dispatch }, payload) {
+            auth.post('register', payload)
+                .then(res => {
+                    commit('setUser', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        logout({ commit, dispatch }, payload) {
+            auth.delete('logout')
+                .then(res => {
+                    commit('setUser', {})
+                    router.push({name: 'Home'})
                 })
                 .catch(err => {
                     console.error(err)
