@@ -119,8 +119,8 @@
 
 <style scoped>
     img{
-        height: 10vh;
-        width: 10vh;
+        height: 5vh;
+        width: 5vh;
         border-radius: 100%;
     }
 </style>

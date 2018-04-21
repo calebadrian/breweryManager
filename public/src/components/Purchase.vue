@@ -1,7 +1,16 @@
 <template>
     <div class="purchase">
         <navbar></navbar>
-        <img src="//placehold.it/1000x1000">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 d-flex justify-content-between">
+                    <h1>Beer One</h1>
+                    <h3>Beer One Description</h3>
+                    <h3>Beer One Price</h3>
+                    <button>Beer Purchased</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
