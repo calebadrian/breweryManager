@@ -6,7 +6,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" v-if="user">
                 <router-link :to="{name: 'Purchase'}">
                     <li class="nav-item">
                         <a class="nav-link">Purchasing</a>
@@ -28,6 +28,7 @@
         </div>
         <div v-else>
             <button class="btn btn-success">Login</button>
+            
             <button class="btn btn-primary">Register</button>
         </div>
     </nav>
@@ -38,9 +39,14 @@
         name: 'Navbar',
         data() {
             return {
-                user: true
+
             }
         },
+        computed: {
+            user() {
+                return this.$store.state.user
+            }
+        }
     }
 </script>
 

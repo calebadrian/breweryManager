@@ -13,6 +13,9 @@
 
       }
     },
+    mounted(){
+      this.$store.dispatch('authenticate')
+    },
     components: {
       navbar
     }

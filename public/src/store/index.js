@@ -15,13 +15,23 @@ var auth = axios.create({
 vue.use(vuex)
 
 export default new vuex.Store({
-    state:{
-
+    state: {
+        user: ''
     },
     mutations: {
-
+        setUser(state, payload) {
+            state.user = payload
+        }
     },
     actions: {
-
+        authenticate({ commit, dispatch }, payload) {
+            auth.get('authenticate')
+                .then(res => {
+                    commit('setUser', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        }
     }
 })
