@@ -1,5 +1,5 @@
 <template>
-    <div class="purchase">
+    <div class="taplist">
         <navbar></navbar>
         <div class="container-fluid">
             <div class="row">
@@ -45,7 +45,7 @@
 <script>
     import navbar from './Navbar'
     export default {
-        name: 'Purchase',
+        name: 'Taplist',
         data() {
             return {
                 newBeer: {

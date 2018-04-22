@@ -4,7 +4,7 @@ import store from '../store/index'
 import swal from 'sweetalert2'
 //@ts-ignore
 import Home from '@/components/Home'
-import Purchase from '@/components/Purchase'
+import Taplist from '@/components/Taplist'
 
 Vue.use(Router)
 
@@ -16,9 +16,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/purchase',
-      name: 'Purchase',
-      component: Purchase,
+      path: '/taplist',
+      name: 'Taplist',
+      component: Taplist,
       beforeEnter: (to, from, next) => {
         if (!from.name) {
           store.dispatch('authenticate')

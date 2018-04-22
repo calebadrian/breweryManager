@@ -9,9 +9,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav" v-if="user.email">
-                <router-link :to="{name: 'Purchase'}">
+                <router-link :to="{name: 'Taplist'}">
                     <li class="nav-item">
-                        <a class="nav-link">Purchasing</a>
+                        <a class="nav-link">Tap List</a>
                     </li>
                 </router-link>
                 <li class="nav-item">
