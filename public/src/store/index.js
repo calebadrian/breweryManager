@@ -29,13 +29,6 @@ export default new vuex.Store({
         setUser(state, payload) {
             state.user = payload
         },
-        updateBeers(state, payload) {
-            for (var i = 0; i < payload.length; i++) {
-                if (payload[i].creatorId == state.user._id) {
-                    state.beers.push(payload[i])
-                }
-            }
-        },
         setBeers(state, payload) {
             state.beers = payload
         }
@@ -91,7 +84,13 @@ export default new vuex.Store({
         getBeers({ commit, dispatch, state }, payload) {
             api.get('beers')
                 .then(res => {
-                    commit('updateBeers', res.data)
+                    var temp = []
+                    for (var i = 0; i < res.data.length; i++) {
+                        if (state.user._id == res.data[i].creatorId) {
+                            temp.push(res.data[i])
+                        }
+                    }
+                    commit('setBeers', temp)
                 })
                 .catch(err => {
                     console.error(err)

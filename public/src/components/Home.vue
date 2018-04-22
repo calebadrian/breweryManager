@@ -1,6 +1,13 @@
 <template>
   <div class="home">
     <navbar></navbar>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12">
+          <img src="//placehold.it/1000x1000">
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

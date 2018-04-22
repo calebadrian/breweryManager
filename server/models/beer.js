@@ -8,11 +8,12 @@ const SALT_FACTOR = 12
 let schema = new Schema({
     name: { type: String, required: true, unique: true },
     description: { type: String, required: true },
-    onTap: {type: Boolean, required: true, default: true},
+    onTap: { type: Boolean, required: true, default: true },
     abv: { type: Number, required: true },
     ibu: { type: Number, required: true },
     price: { type: Number, required: true },
-    creatorId: { type: ObjectId, ref: 'User', required: true}
+    quantity: { type: Number, required: true },
+    creatorId: { type: ObjectId, ref: 'User', required: true }
 })
 
 
