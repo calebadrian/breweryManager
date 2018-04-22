@@ -22,6 +22,7 @@ export default new Router({
       beforeEnter: (to, from, next) => {
         if (!from.name) {
           store.dispatch('authenticate')
+          next()
         } else if (!store.state.user.name && from.name) {
           swal({
             type: 'error',

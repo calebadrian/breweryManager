@@ -12,15 +12,32 @@ var auth = axios.create({
     withCredentials: true
 })
 
+var api = axios.create({
+    baseURL: baseUrl + 'api/',
+    timeout: 5000,
+    withCredentials: true
+})
+
 vue.use(vuex)
 
 export default new vuex.Store({
     state: {
         user: {},
+        beers: [],
     },
     mutations: {
         setUser(state, payload) {
             state.user = payload
+        },
+        updateBeers(state, payload) {
+            for (var i = 0; i < payload.length; i++) {
+                if (payload[i].creatorId == state.user._id) {
+                    state.beers.push(payload[i])
+                }
+            }
+        },
+        setBeers(state, payload) {
+            state.beers = payload
         }
     },
     actions: {
@@ -30,7 +47,7 @@ export default new vuex.Store({
                     commit('setUser', res.data)
                 })
                 .catch(err => {
-                    router.push({name: 'Home'})
+                    router.push({ name: 'Home' })
                 })
         },
         login({ commit, dispatch }, payload) {
@@ -55,7 +72,26 @@ export default new vuex.Store({
             auth.delete('logout')
                 .then(res => {
                     commit('setUser', {})
-                    router.push({name: 'Home'})
+                    commit('setBeers', [])
+                    router.push({ name: 'Home' })
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        addBeer({ commit, dispatch, state }, payload) {
+            api.post('beers', payload)
+                .then(res => {
+                    dispatch('getBeers', state.user._id)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        getBeers({ commit, dispatch, state }, payload) {
+            api.get('beers')
+                .then(res => {
+                    commit('updateBeers', res.data)
                 })
                 .catch(err => {
                     console.error(err)

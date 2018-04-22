@@ -25,7 +25,8 @@
         </div>
         <div v-if="user.email" class="d-flex">
             <router-link :to="{name: 'Home'}" class="d-flex align-items-center mr-2">
-                <img :src="user.profilePic">
+                <img :src="user.profilePic" v-if="user.profilePic">
+                <img src="//placehold.it/200x200" v-else>
                 <a class="ml-2">{{user.name}}</a>
             </router-link>
             <button class="btn btn-danger" @click="logout">Logout</button>
