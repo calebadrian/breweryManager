@@ -17,12 +17,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Schedule</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Inventory</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Add Brew</a>
-                </li>
+                <router-link :to="{name: 'Inventory'}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Inventory</a>
+                    </li>
+                </router-link>
             </ul>
         </div>
         <div v-if="user.email" class="d-flex">
@@ -125,5 +124,8 @@
         height: 5vh;
         width: 5vh;
         border-radius: 100%;
+    }
+    .navbar{
+        height: 9vh;
     }
 </style>
