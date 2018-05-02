@@ -2,8 +2,6 @@ let mongoose = require('mongoose')
 let Schema = mongoose.Schema
 let ObjectId = mongoose.SchemaTypes.ObjectId
 let schemaName = "Beer"
-let bcrypt = require("bcryptjs")
-const SALT_FACTOR = 12
 
 let schema = new Schema({
     name: { type: String, required: true, unique: true },
