@@ -34,16 +34,12 @@
                     <h5>Description</h5>
                     <h5>ABV</h5>
                     <h5>IBU</h5>
-                    <h5>Price</h5>
+                    <h5>Keg Quantity</h5>
+                    <h5>Case Quantity</h5>
                     <h5>On Tap?</h5>
                 </div>
-                <div class="col-sm-12 d-flex justify-content-between" v-for="beer in beers">
-                    <h1>{{beer.name}}</h1>
-                    <h3>{{beer.description}}</h3>
-                    <h3>{{beer.abv}}</h3>
-                    <h3>{{beer.ibu}}</h3>
-                    <h3>{{beer.price}}</h3>
-                    <h3>{{beer.onTap}}</h3>
+                <div class="col-sm-12" v-for="beer in beers">
+                    <beer :beer="beer"></beer>
                 </div>
             </div>
         </div>
@@ -52,6 +48,7 @@
 
 <script>
     import navbar from './Navbar'
+    import beer from './Beer'
     export default {
         name: 'Taplist',
         data() {
@@ -69,8 +66,16 @@
         mounted() {
             this.$store.dispatch('getBeers')
         },
+        methods: {
+            addBeer() {
+                this.newBeer.creatorId = this.$store.state.user._id
+                this.$store.dispatch('addBeer', this.newBeer)
+                this.newBeer = { name: '', description: '', abv: 1, ibu: 1, price: 1, onTap: true }
+            }
+        },
         components: {
-            navbar
+            navbar,
+            beer
         },
         computed: {
             beers() {

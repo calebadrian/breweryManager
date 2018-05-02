@@ -35,13 +35,6 @@
         mounted() {
             this.$store.dispatch('getBeers')
         },
-        methods: {
-            addBeer() {
-                this.newBeer.creatorId = this.$store.state.user._id
-                this.$store.dispatch('addBeer', this.newBeer)
-                this.newBeer = { name: '', description: '', abv: 1, ibu: 1, price: 1, onTap: true }
-            }
-        },
         components: {
             navbar
         },

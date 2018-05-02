@@ -10,7 +10,6 @@ let schema = new Schema({
     abv: { type: Number, required: true },
     ibu: { type: Number, required: true },
     price: { type: Number, required: true },
-    quantity: { type: Number, required: true },
     creatorId: { type: ObjectId, ref: 'User', required: true }
 })
 

@@ -24,6 +24,8 @@ export default new vuex.Store({
     state: {
         user: {},
         beers: [],
+        kegs: {},
+        cases: {}
     },
     mutations: {
         setUser(state, payload) {
@@ -31,6 +33,18 @@ export default new vuex.Store({
         },
         setBeers(state, payload) {
             state.beers = payload
+        },
+        setKegs(state, payload){
+            state.kegs = payload
+        },
+        addKeg(state, payload){
+            state.kegs[payload.id] = payload.data
+        },
+        setCases(state, payload){
+            state.cases = payload
+        },
+        addCase(state, payload){
+            state.cases[payload.id] = payload.data
         }
     },
     actions: {
@@ -66,6 +80,7 @@ export default new vuex.Store({
                 .then(res => {
                     commit('setUser', {})
                     commit('setBeers', [])
+                    commit('setKegs', {})
                     router.push({ name: 'Home' })
                 })
                 .catch(err => {
@@ -75,6 +90,8 @@ export default new vuex.Store({
         addBeer({ commit, dispatch, state }, payload) {
             api.post('beers', payload)
                 .then(res => {
+                    api.post('kegs', {creatorId: state.user._id, beerId: res.data._id})
+                    api.post('cases', {creatorId: state.user._id, beerId: res.data._id})
                     dispatch('getBeers', state.user._id)
                 })
                 .catch(err => {
@@ -91,6 +108,26 @@ export default new vuex.Store({
                         }
                     }
                     commit('setBeers', temp)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        getKegs({ commit, dispatch}, payload) {
+            api.get('kegs/' + payload)
+                .then(res => {
+                    var temp = res.data[0]
+                    commit('addKeg', {id: payload, data: temp})
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        getCases({ commit, dispatch}, payload) {
+            api.get('cases/' + payload)
+                .then(res => {
+                    var temp = res.data[0]
+                    commit('addCase', {id: payload, data: temp})
                 })
                 .catch(err => {
                     console.error(err)
