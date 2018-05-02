@@ -3,8 +3,13 @@
         <navbar></navbar>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">
-                    
+                <div class="col-sm-12 d-flex justify-content-between">
+                    <h5>Name</h5>
+                    <h5>Description</h5>
+                    <h5>ABV</h5>
+                    <h5>IBU</h5>
+                    <h5>Price</h5>
+                    <h5>Purchase</h5>
                 </div>
                 <div class="col-sm-12 d-flex justify-content-between" v-for="beer in beers" v-if="beer.onTap">
                     <h1>{{beer.name}}</h1>
