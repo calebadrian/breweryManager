@@ -22,4 +22,12 @@ router.get('/api/cases/:beerId', (req, res, next) => {
         .catch(next)
 })
 
+router.put('/api/cases/:beerId/quantity', (req, res, next) => {
+    Cases.findOneAndUpdate({beerId: req.params.beerId}, req.body, {new: true})
+        .then(singleCase => {
+            res.send(singleCase)
+        })
+        .catch(next)
+})
+
 module.exports = router;

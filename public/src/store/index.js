@@ -34,17 +34,17 @@ export default new vuex.Store({
         setBeers(state, payload) {
             state.beers = payload
         },
-        setKegs(state, payload){
+        setKegs(state, payload) {
             state.kegs = payload
         },
-        addKeg(state, payload){
-            state.kegs[payload.id] = payload.data
+        addKeg(state, payload) {
+            vue.set(state.kegs, payload.id, payload.data)
         },
-        setCases(state, payload){
+        setCases(state, payload) {
             state.cases = payload
         },
-        addCase(state, payload){
-            state.cases[payload.id] = payload.data
+        addCase(state, payload) {
+            vue.set(state.cases, payload.id, payload.data)
         }
     },
     actions: {
@@ -90,8 +90,8 @@ export default new vuex.Store({
         addBeer({ commit, dispatch, state }, payload) {
             api.post('beers', payload)
                 .then(res => {
-                    api.post('kegs', {creatorId: state.user._id, beerId: res.data._id})
-                    api.post('cases', {creatorId: state.user._id, beerId: res.data._id})
+                    api.post('kegs', { creatorId: state.user._id, beerId: res.data._id })
+                    api.post('cases', { creatorId: state.user._id, beerId: res.data._id })
                     dispatch('getBeers', state.user._id)
                 })
                 .catch(err => {
@@ -113,21 +113,61 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
-        getKegs({ commit, dispatch}, payload) {
+        getKegs({ commit, dispatch }, payload) {
             api.get('kegs/' + payload)
                 .then(res => {
                     var temp = res.data[0]
-                    commit('addKeg', {id: payload, data: temp})
+                    commit('addKeg', { id: payload, data: temp })
                 })
                 .catch(err => {
                     console.error(err)
                 })
         },
-        getCases({ commit, dispatch}, payload) {
+        getCases({ commit, dispatch }, payload) {
             api.get('cases/' + payload)
                 .then(res => {
                     var temp = res.data[0]
-                    commit('addCase', {id: payload, data: temp})
+                    commit('addCase', { id: payload, data: temp })
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        incKegQuantity({ commit, dispatch, state }, payload) {
+            state.kegs[payload._id].quantity++;
+            api.put('kegs/' + payload._id + '/quantity', state.kegs[payload._id])
+                .then(res => {
+                    commit('addKeg', {id: res.data.beerId, data: res.data})
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        decKegQuantity({ commit, dispatch, state }, payload) {
+            state.kegs[payload._id].quantity--;
+            api.put('kegs/' + payload._id + '/quantity', state.kegs[payload._id])
+                .then(res => {
+                    commit('addKeg', {id: res.data.beerId, data: res.data})
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        incCaseQuantity({ commit, dispatch, state }, payload) {
+            state.cases[payload._id].quantity++;
+            api.put('cases/' + payload._id + '/quantity', state.cases[payload._id])
+                .then(res => {
+                    commit('addCase', {id: res.data.beerId, data: res.data})
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        decCaseQuantity({ commit, dispatch, state }, payload) {
+            state.cases[payload._id].quantity--;
+            api.put('cases/' + payload._id + '/quantity', state.cases[payload._id])
+                .then(res => {
+                    commit('addCase', {id: res.data.beerId, data: res.data})
                 })
                 .catch(err => {
                     console.error(err)

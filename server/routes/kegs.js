@@ -22,4 +22,12 @@ router.get('/api/kegs/:beerId', (req, res, next) => {
         .catch(next)
 })
 
+router.put('/api/kegs/:beerId/quantity', (req, res, next) => {
+    Kegs.findOneAndUpdate({beerId: req.params.beerId}, req.body, {new: true})
+        .then(keg => {
+            res.send(keg)
+        })
+        .catch(next)
+})
+
 module.exports = router;

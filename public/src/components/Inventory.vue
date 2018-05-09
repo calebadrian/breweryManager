@@ -59,7 +59,7 @@
                     abv: 1,
                     ibu: 1,
                     price: 1,
-                    onTap: true
+                    onTap: false
                 }
             }
         },
@@ -70,7 +70,7 @@
             addBeer() {
                 this.newBeer.creatorId = this.$store.state.user._id
                 this.$store.dispatch('addBeer', this.newBeer)
-                this.newBeer = { name: '', description: '', abv: 1, ibu: 1, price: 1, onTap: true }
+                this.newBeer = { name: '', description: '', abv: 1, ibu: 1, price: 1, onTap: false }
             }
         },
         components: {
