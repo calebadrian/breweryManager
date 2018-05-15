@@ -26,7 +26,7 @@ export default new vuex.Store({
         beers: [],
         kegs: {},
         cases: {},
-        taplist: []
+        taplist: {}
     },
     mutations: {
         setUser(state, payload) {
@@ -47,6 +47,12 @@ export default new vuex.Store({
         addCase(state, payload) {
             vue.set(state.cases, payload.id, payload.data)
         },
+        addToTaplist(state, payload) {
+            state.taplist.push(payload)
+        },
+        setTaplist(state, payload){
+            state.taplist = payload
+        }
     },
     actions: {
         authenticate({ commit, dispatch }, payload) {
@@ -199,9 +205,16 @@ export default new vuex.Store({
         getTaplist({ commit, dispatch, state }, payload) {
             api.get('taplists/' + state.user._id)
                 .then(res => {
-                    for (var i = 0; i < res.data.beers.length; i++) {
-                        dispatch('getBeer', {beerId: res.data.beers[i].beerId, quantity: res.data.beers[i].quantity})
-                    }
+                    commit('setTaplist', res.data)
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        addToTaplist({commit, dispatch, state}, payload){
+            api.put('taplists/' + state.user._id + '/beers', {beerId: payload._id, quantity: 1984})
+                .then(res => {
+                    dispatch('getTaplist')
                 })
                 .catch(err => {
                     console.error(err)

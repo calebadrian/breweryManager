@@ -3,9 +3,6 @@
         <navbar></navbar>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-12">
-                    <button class="btn btn-info">Add New Tap</button>
-                </div>
                 <div class="col-sm-12 d-flex justify-content-between">
                     <h5>Name</h5>
                     <h5>Description</h5>
@@ -14,7 +11,7 @@
                     <h5>Price</h5>
                     <h5>Purchase</h5>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -30,6 +27,7 @@
         },
         mounted() {
             this.$store.dispatch('authenticate')
+            this.$store.dispatch('getBeers')
         },
         components: {
             navbar

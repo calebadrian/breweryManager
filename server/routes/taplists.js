@@ -23,6 +23,17 @@ router.get('/api/taplists/:userId', (req, res, next) => {
         .catch(next)
 })
 
+router.put('/api/taplists/:userId/beers', (req, res, next) => {
+    Taplists.findOne({creatorId: req.params.userId})
+        .then(taplist => {
+            taplist.beers.push(req.body)
+            taplist.markModified('beers')
+            taplist.save()
+            res.send(taplist)
+        })
+        .catch(next)
+})
+
 
 
 

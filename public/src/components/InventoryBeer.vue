@@ -18,12 +18,13 @@
                 <i class="fas fa-chevron-down" @click="decCaseQuantity(beer)"></i>
             </div>
         </div>
+        <button class="btn btn-primary" @click="addToTaplist(beer)" v-if="kegs[beer._id].quantity > 0">Add To Taplist</button>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'InverntoryBeer',
+        name: 'InventoryBeer',
         props: ['beer'],
         data() {
             return {
@@ -45,6 +46,10 @@
             },
             decCaseQuantity(beer) {
                 this.$store.dispatch('decCaseQuantity', beer)
+            },
+            addToTaplist(beer){
+                this.$store.dispatch('decKegQuantity', beer)
+                this.$store.dispatch('addToTaplist', beer)
             }
         },
         computed: {
