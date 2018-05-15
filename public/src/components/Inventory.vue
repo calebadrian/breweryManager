@@ -29,15 +29,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 d-flex justify-content-between">
-                    <h5>Name</h5>
-                    <h5>Description</h5>
-                    <h5>ABV</h5>
-                    <h5>IBU</h5>
-                    <h5>Keg Quantity</h5>
-                    <h5>Case Quantity</h5>
-                    <h5>On Tap?</h5>
-                </div>
+                <h5 class="col-sm-2">Name</h5>
+                <h5 class="col-sm-2">Description</h5>
+                <h5 class="col-sm-2">ABV</h5>
+                <h5 class="col-sm-2">IBU</h5>
+                <h5 class="col-sm-2">Keg Quantity</h5>
+                <h5 class="col-sm-2">Case Quantity</h5>
                 <div class="col-sm-12" v-for="beer in beers">
                     <beer :beer="beer"></beer>
                 </div>

@@ -18,7 +18,6 @@
                 <i class="fas fa-chevron-down" @click="decCaseQuantity(beer)"></i>
             </div>
         </div>
-        <h5>{{beer.onTap}}</h5>
     </div>
 </template>
 
