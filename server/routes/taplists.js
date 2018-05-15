@@ -15,7 +15,7 @@ router.post('/api/taplists', (req, res, next) => {
         .catch(next)
 })
 
-router.get('/api/taplist/:userId', (req, res, next) => {
+router.get('/api/taplists/:userId', (req, res, next) => {
     Taplists.findOne({creatorId: req.params.userId})
         .then(taplist => {
             res.send(taplist)

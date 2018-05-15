@@ -36,7 +36,7 @@
                 <h5 class="col-sm-2">Keg Quantity</h5>
                 <h5 class="col-sm-2">Case Quantity</h5>
                 <div class="col-sm-12" v-for="beer in beers">
-                    <beer :beer="beer"></beer>
+                    <inventorybeer :beer="beer"></inventorybeer>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
 
 <script>
     import navbar from './Navbar'
-    import beer from './Beer'
+    import inventorybeer from './InventoryBeer'
     export default {
         name: 'Taplist',
         data() {
@@ -72,7 +72,7 @@
         },
         components: {
             navbar,
-            beer
+            inventorybeer
         },
         computed: {
             beers() {

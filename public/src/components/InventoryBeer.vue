@@ -23,7 +23,7 @@
 
 <script>
     export default {
-        name: 'Beer',
+        name: 'InverntoryBeer',
         props: ['beer'],
         data() {
             return {

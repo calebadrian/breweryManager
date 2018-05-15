@@ -9,6 +9,7 @@ var authRoutes = require('./auth/routes')
 var beerRoutes = require('./routes/beers')
 var kegRoutes = require('./routes/kegs')
 var caseRoutes = require('./routes/cases')
+var taplistRoutes = require('./routes/taplists')
 
 var whitelist = ['http://localhost:8080', '//brewbros.herokuapp.com']
 var corsOptions = {
@@ -29,6 +30,7 @@ server.use(authRoutes)
 server.use(beerRoutes)
 server.use(kegRoutes)
 server.use(caseRoutes)
+server.use(taplistRoutes)
 
 server.use('/api/*', (req, res, next) => {
     if (req.method.toLowerCase() !== 'get' && !req.session.uid) {

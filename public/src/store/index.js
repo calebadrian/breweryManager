@@ -25,7 +25,8 @@ export default new vuex.Store({
         user: {},
         beers: [],
         kegs: {},
-        cases: {}
+        cases: {},
+        taplist: []
     },
     mutations: {
         setUser(state, payload) {
@@ -45,13 +46,14 @@ export default new vuex.Store({
         },
         addCase(state, payload) {
             vue.set(state.cases, payload.id, payload.data)
-        }
+        },
     },
     actions: {
         authenticate({ commit, dispatch }, payload) {
             auth.get('authenticate')
                 .then(res => {
                     commit('setUser', res.data)
+                    dispatch('getTaplist')
                 })
                 .catch(err => {
                     router.push({ name: 'Home' })
@@ -61,6 +63,7 @@ export default new vuex.Store({
             auth.post('login', payload)
                 .then(res => {
                     commit('setUser', res.data.user)
+                    dispatch('getTaplist')
                 })
                 .catch(err => {
                     console.error(err)
@@ -70,6 +73,7 @@ export default new vuex.Store({
             auth.post('register', payload)
                 .then(res => {
                     commit('setUser', res.data)
+                    dispatch('createTaplist', res.data)
                 })
                 .catch(err => {
                     console.error(err)
@@ -81,6 +85,7 @@ export default new vuex.Store({
                     commit('setUser', {})
                     commit('setBeers', [])
                     commit('setKegs', {})
+                    commit('setTaplist', {})
                     router.push({ name: 'Home' })
                 })
                 .catch(err => {
@@ -113,6 +118,15 @@ export default new vuex.Store({
                     console.error(err)
                 })
         },
+        getBeer({ commit, dispatch }, payload) {
+            api.get('beers/' + payload.beerId)
+                .then(res => {
+                    commit('addToTaplist', {beer: res.data, quantity: payload.quantity})
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
         getKegs({ commit, dispatch }, payload) {
             api.get('kegs/' + payload)
                 .then(res => {
@@ -137,7 +151,7 @@ export default new vuex.Store({
             state.kegs[payload._id].quantity++;
             api.put('kegs/' + payload._id + '/quantity', state.kegs[payload._id])
                 .then(res => {
-                    commit('addKeg', {id: res.data.beerId, data: res.data})
+                    commit('addKeg', { id: res.data.beerId, data: res.data })
                 })
                 .catch(err => {
                     console.error(err)
@@ -147,7 +161,7 @@ export default new vuex.Store({
             state.kegs[payload._id].quantity--;
             api.put('kegs/' + payload._id + '/quantity', state.kegs[payload._id])
                 .then(res => {
-                    commit('addKeg', {id: res.data.beerId, data: res.data})
+                    commit('addKeg', { id: res.data.beerId, data: res.data })
                 })
                 .catch(err => {
                     console.error(err)
@@ -157,7 +171,7 @@ export default new vuex.Store({
             state.cases[payload._id].quantity++;
             api.put('cases/' + payload._id + '/quantity', state.cases[payload._id])
                 .then(res => {
-                    commit('addCase', {id: res.data.beerId, data: res.data})
+                    commit('addCase', { id: res.data.beerId, data: res.data })
                 })
                 .catch(err => {
                     console.error(err)
@@ -167,7 +181,27 @@ export default new vuex.Store({
             state.cases[payload._id].quantity--;
             api.put('cases/' + payload._id + '/quantity', state.cases[payload._id])
                 .then(res => {
-                    commit('addCase', {id: res.data.beerId, data: res.data})
+                    commit('addCase', { id: res.data.beerId, data: res.data })
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        createTaplist({ commit, dispatch }, payload) {
+            api.post('taplists', { creatorId: payload._id })
+                .then(res => {
+                    
+                })
+                .catch(err => {
+                    console.error(err)
+                })
+        },
+        getTaplist({ commit, dispatch, state }, payload) {
+            api.get('taplists/' + state.user._id)
+                .then(res => {
+                    for (var i = 0; i < res.data.beers.length; i++) {
+                        dispatch('getBeer', {beerId: res.data.beers[i].beerId, quantity: res.data.beers[i].quantity})
+                    }
                 })
                 .catch(err => {
                     console.error(err)

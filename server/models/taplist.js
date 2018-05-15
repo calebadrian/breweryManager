@@ -6,8 +6,8 @@ let schemaName = "Taplist"
 let schema = new Schema({
     creatorId: { type: ObjectId, ref: 'User', required: true },
     beers: [{
-        beerId: {type: ObjectId, ref: 'Beer', required: true},
-        quantity: {type: Number, required: true}
+        beerId: {type: ObjectId, ref: 'Beer'},
+        quantity: {type: Number}
     }]
 })
 
